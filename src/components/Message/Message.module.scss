@@ -1,0 +1,16 @@
+.message{
+    background-color: var(--deep_ocean_color);
+
+    box-sizing: border-box;
+    max-width: 80%;
+    width: max-content;
+
+    padding: 0.4rem 0.6rem;
+
+    border-radius: 0.6rem 0.6rem 0.6rem 0;
+    color: var(--smoky_white_color);
+
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 500;
+}
