@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { greetingUser } from "../../helpers/greetingUser";
 import { getCuid, setCuid } from "../../helpers/storage.helper";
 import { useHttp } from "../../hooks/http.hook";
 import { IDialogWindow } from "../../models/DialogWindowModel";
@@ -7,16 +6,18 @@ import DialogControlPanel from "../DialogControlPanel/DialogControlPanel";
 import { Loader } from "../Loader/Loader";
 import Message from "../Message/Message";
 import Question from "../Question/Question";
+import DialogWindowContext from "./DialogWindow.context";
 import styles from "./DialogWindow.module.scss";
 
 const hostname = 'https://biz.nanosemantics.ru';
 const host = `${hostname}/api/2.1/json/Chat`;
 
-const isCuidExist = getCuid('ciud');
+const isCuidExist = getCuid('cuid');
 
 const DialogWindow = () => {
     const { loading, request, setLoading } = useHttp();
     const [chatId, setChatId] = useState('');
+    const [chatHistory, setChatHistory] = useState([]);
 
     const chatInit = async() => {
 		try {
@@ -36,17 +37,24 @@ const DialogWindow = () => {
         // иначе - при отправке нового сообщения cuid беру из localStorage
     }, [])
 
-    if (loading) {
-        return <Loader />
-    }
+    useEffect(() => {
+        console.log(chatHistory);
+        
+    }, [chatHistory]);
 
    return (
         <div className={styles.dialogWindow}>
+            <DialogWindowContext.Provider value={{chatHistory, setChatHistory}}>
             <div className={styles.dialogWindow__frame}>
                 <p>{chatId}</p>
                 <div className={styles.dialogWindow__chat}>
                     {loading ? <Loader /> : (
-                        !isCuidExist && <Message text='Здарова' />
+                        <>
+                        {!isCuidExist && <Message text='Здарова' />}
+                        {chatHistory.length && chatHistory.map((mes) => (
+                            <Message text={mes} />
+                        ))}
+                        </>
                     )}
                     <div className={styles.dialogWindow__questions}>
                         <Question text='3G' />
@@ -55,6 +63,7 @@ const DialogWindow = () => {
                 </div>
                 <DialogControlPanel />
             </div>
+            </DialogWindowContext.Provider>
         </div>
    )
 };
