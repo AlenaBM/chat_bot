@@ -1,3 +1,4 @@
 export interface IQuestion {
-    text: string
+    text: string,
+    chatHandler?: () => void
 }

@@ -1,8 +1,8 @@
 import { IQuestion } from "../../models/QuestionModel";
 import styles from "./Question.module.scss";
 
-const Question = ({ text }: IQuestion) => (
-    <div className={styles.question}>
+const Question = ({ text, chatHandler }: IQuestion) => (
+    <div className={styles.question} onClick={chatHandler}>
         {text}
     </div>
 );

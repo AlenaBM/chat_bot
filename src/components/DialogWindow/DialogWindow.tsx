@@ -29,6 +29,18 @@ const DialogWindow = () => {
 		}
 	}
 
+    const chatReq = async(text) => {
+		try {
+            setLoading(true)
+			const data = await request(`${host}.request`, "POST", 
+            {"cuid": `${JSON.parse(localStorage.getItem('chat_bot_cuid'))}`, "text": `${text}`})
+            setChatHistory([...chatHistory, { text: text, who: 'you' }, { text: data.result.text.value, who: 'bot' }]);
+            setLoading(false)
+		} catch (e) {
+			setLoading(false)
+		}
+	}
+
     useEffect(() => {
         if (!isCuidExist) {
             chatInit()
@@ -37,28 +49,25 @@ const DialogWindow = () => {
         // иначе - при отправке нового сообщения cuid беру из localStorage
     }, [])
 
-    useEffect(() => {
-        console.log(chatHistory);
-        
-    }, [chatHistory]);
-
    return (
         <div className={styles.dialogWindow}>
             <DialogWindowContext.Provider value={{chatHistory, setChatHistory}}>
             <div className={styles.dialogWindow__frame}>
                 <p>{chatId}</p>
                 <div className={styles.dialogWindow__chat}>
+                   <div className={styles.dialogWindow__chatView}>
                     {loading ? <Loader /> : (
-                        <>
-                        {!isCuidExist && <Message text='Здарова' />}
-                        {chatHistory.length && chatHistory.map((mes) => (
-                            <Message text={mes} />
-                        ))}
-                        </>
-                    )}
+                            <>
+                            {!isCuidExist && <Message text='Здравствуйте!' />}
+                            {chatHistory.length && chatHistory.map((mes, i) => (
+                                <Message className={mes.who === 'you' && styles.dialogWindow__message_your} text={mes.text} key={i+'_'+mes} />
+                            ))}
+                            </>
+                        )}
+                   </div>
                     <div className={styles.dialogWindow__questions}>
-                        <Question text='3G' />
-                        <Question text='Lte' />
+                        <Question text='3G'  chatHandler={() => chatReq('3G')}/>
+                        <Question text='Lte' chatHandler={() => chatReq('Lte')}/>
                     </div>
                 </div>
                 <DialogControlPanel />

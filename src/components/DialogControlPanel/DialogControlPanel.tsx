@@ -16,16 +16,17 @@ const DialogControlPanel = ({ title, paragraph }: IDialogControlPanel) => {
     const isCuidExist = getCuid('cuid');
     
     const { loading, request, setLoading } = useHttp();
-    const [messageContent, setMessageContent] = useState('');
+    const [messageContent, setMessageContent] = useState({});
     const { chatHistory, setChatHistory } = useContext(DialogWindowContext);
 
     const chatReq = async(e) => {
         e.preventDefault();
 		try {
+            setLoading(true)
 			const data = await request(`${host}.request`, "POST", 
             {"cuid": `${JSON.parse(localStorage.getItem('chat_bot_cuid'))}`, "text": `${messageContent}`})
-            setChatHistory([...chatHistory, data.result.text.value]);
-            
+            setChatHistory([...chatHistory, { text: messageContent, who: 'you' }, { text: data.result.text.value, who: 'bot' }]);
+            setLoading(false)
 		} catch (e) {
 			setLoading(false)
 		}
@@ -33,14 +34,20 @@ const DialogControlPanel = ({ title, paragraph }: IDialogControlPanel) => {
 
     return (
         <div className={styles.dialogControlPanel}>
-            <form onSubmit={chatReq}>
+            <form
+                className={styles.dialogControlPanel__form}
+                onSubmit={(e) => {
+                    chatReq(e);
+                }}>
                 <TextField changeHandler={(e) => setMessageContent(e.target.value)} changeHandlerViaKey={(e) => {
                     if (e.key === "Enter" && e.target.value) {
                         e.preventDefault()
                         chatReq(e)
                     }
                 }} />
-                <Button type="submit" content="Отправить" className={styles.dialogControlPanel__button} chatHadler={chatReq}/>
+                <Button type="submit" content="Отправить" className={styles.dialogControlPanel__button} chatHadler={(e) => {
+                    chatReq(e)
+                }}/>
             </form>
             <div className={styles.dialogControlPanel__actions}>
                 <Button type="button" className={styles.dialogControlPanel__button_reset}>
