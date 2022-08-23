@@ -42,6 +42,7 @@ const DialogWindow = () => {
         if (getValueFromLocalStore('history')?.length) {
             setChatHistory(getValueFromLocalStore('history'));
         }
+        console.log(chatHistory);
     }, [])
 
    return (
@@ -51,7 +52,7 @@ const DialogWindow = () => {
                 <div className={styles.dialogWindow__chat}>
                    <div className={styles.dialogWindow__chatView} ref={chatWindowRef}>
                         <Message text='Здравствуйте!' />
-                        {chatHistory.length && chatHistory.map((mes, i) => (
+                        {chatHistory.length > 0 && chatHistory.map((mes, i) => (
                             <Message className={mes.role === 'user' && styles.dialogWindow__message_your} text={mes.text} key={i+'_'+mes.text} />
                         ))}
                    </div>
