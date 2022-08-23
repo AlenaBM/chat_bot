@@ -42,7 +42,6 @@ const DialogWindow = () => {
         if (getValueFromLocalStore('history')?.length) {
             setChatHistory(getValueFromLocalStore('history'));
         }
-        console.log(chatHistory);
     }, [])
 
    return (
