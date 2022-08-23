@@ -1,3 +1,3 @@
 import styles from "./Loader.module.scss";
 
-export const Loader = () => <div className={styles.loader}>Загрузка...</div>;
+export const Loader = () => <div className={styles.loader}>Бот печатает...</div>;

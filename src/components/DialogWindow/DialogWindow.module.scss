@@ -37,7 +37,7 @@
     position: relative;
     box-sizing: border-box;
 
-    padding: 0.5rem 0.5rem 0;
+    padding: 0 0.5rem;
 }
 
 .dialogWindow__questions{
@@ -99,4 +99,9 @@
     align-self: flex-end;
 
     border-radius: 0.6rem 0.6rem 0 0.6rem;
+}
+
+.dialogWindow__button{
+    background-color: white;
+    color: black;
 }

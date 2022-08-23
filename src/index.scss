@@ -4,10 +4,6 @@ body{
 
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-:root{
-    height: 100%;
 
     --deep_gray_color: #313131;
     --light_gray_color: #424242;
@@ -17,6 +13,17 @@ body{
     --black_color: #141414;
 }
 
+:root{
+    height: 100%;
+}
+
 #root{
     height: 100%;
+}
+
+body.light{
+    --deep_gray_color: #BFBFBF;
+    --light_gray_color: #505050;
+    --smoky_white_color: #141414;
+    --black_color: #fff;
 }

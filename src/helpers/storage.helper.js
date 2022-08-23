@@ -5,10 +5,13 @@ const getCuid = (key, prefix = 'chat_bot') => {
 const setCuid = (key, value, prefix = 'chat_bot') => {
     if (value) {
         localStorage.setItem(`${prefix}_${key}`, JSON.stringify(value));
-    } 
-    // else {
-    //     localStorage.removeItem(`${prefix}_${key}`);
-    // }
+    }
 }
 
-export { getCuid, setCuid };
+const setHistory = (key, value, prefix = 'chat_bot') => {
+    if (value) {
+        localStorage.setItem(`${prefix}_${key}`, JSON.stringify(value));
+    }
+}
+
+export { getCuid, setCuid, setHistory };
