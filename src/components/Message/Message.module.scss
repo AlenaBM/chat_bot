@@ -1,18 +1,26 @@
-.message{
-    background-color: var(--deep_ocean_color);
+.message {
+	background-color: var(--deep_ocean_color);
 
-    box-sizing: border-box;
-    max-width: 400px;
-    width: max-content;
+	box-sizing: border-box;
+	max-width: 400px;
+	width: max-content;
 
-    padding: 0.4rem 0.6rem;
+	padding: 0.4rem 0.6rem;
 
-    border-radius: 0.6rem 0.6rem 0.6rem 0;
-    color: var(--smoky_white_color);
+	border-radius: 0.6rem 0.6rem 0.6rem 0;
+	color: white;
 
-    font-size: 1rem;
-    line-height: 1.2;
-    font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.2;
+	font-weight: 500;
 
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
+
+	&:first-of-type {
+		margin-top: 1rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		max-width: 90%;
+	}
 }

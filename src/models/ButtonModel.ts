@@ -3,5 +3,5 @@ export interface IButton {
     content?: string,
     children?: React.ReactNode,
     className?: string,
-    chatHadler?: () => void
+    actionHadler?: () => void
 }

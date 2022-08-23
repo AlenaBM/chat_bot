@@ -1,4 +1,3 @@
-import { IMessage } from './../models/MessageModel';
 import { useState, useCallback } from "react"
 
 export const useHttp = () => {
@@ -6,7 +5,7 @@ export const useHttp = () => {
 	const [error, setError] = useState(null)
 
 	const request = useCallback(
-		async (url: string, method = "GET", body: { "uuid": string } | { "cuid": string } | number | IMessage | null, headers = {}) => {
+		async (url, method = "GET", body = null, headers = {}) => {
 			setLoading(true)
 			try {
 				if (body) {

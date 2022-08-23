@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import Button from "../Button/Button"
 
+import {ReactComponent as MoonIcon} from '../../assets/icon_moon.svg';
+import {ReactComponent as SunIcon} from '../../assets/icon_sun.svg';
+
+import styles from "./ThemeSwitcher.module.scss";
+
 const THEMES = {
 	LIGHT: 'light',
 	DARK: 'dark'
@@ -31,8 +36,7 @@ export const ThemeSwitcher = () => {
         }
 	}, [])
 
-	return (
-		             <Button type="button" content="theme" chatHadler={switchTheme}/>
-
-	)
+	return <Button type="button" className={styles.themeSwither} actionHadler={switchTheme}>
+        {theme === THEMES.LIGHT ? <SunIcon className={styles.themeSwither__icon_sun} /> : <MoonIcon className={styles.themeSwither__icon_moon} /> }
+    </Button>
 }

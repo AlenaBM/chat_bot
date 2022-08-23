@@ -11,6 +11,10 @@ body{
     --deep_ocean_color: #261974;
     --red_color: #970D0D;
     --black_color: #141414;
+
+    --base_color: white;
+
+    --gradient: linear-gradient(180deg, #261974 0%, rgba(38, 25, 116, 0) 100%);
 }
 
 :root{
@@ -23,7 +27,10 @@ body{
 
 body.light{
     --deep_gray_color: #BFBFBF;
-    --light_gray_color: #505050;
-    --smoky_white_color: #141414;
+    --light_gray_color: #9e9e9e;
+    --smoky_white_color: #fff;
     --black_color: #fff;
+
+    --base_color: black;
+
 }
