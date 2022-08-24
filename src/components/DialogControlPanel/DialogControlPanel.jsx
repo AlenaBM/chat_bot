@@ -32,13 +32,14 @@ const DialogControlPanel = () => {
 		<div className={styles.dialogControlPanel}>
 			<form className={styles.dialogControlPanel__form}>
 				<TextField
+					textFieldValue={messageContent}
 					changeHandler={(e) =>
 						setMessageContent(e.target.value)
 					}
-					changeHandlerViaKey={(e) => {
+					changeHandlerViaKey={async(e) => {
 						if (e.key === "Enter" && messageContent) {
 							e.preventDefault()
-							sendMessageRquest(
+							await sendMessageRquest(
 								host,
 								chatId,
 								messageContent,
@@ -48,14 +49,15 @@ const DialogControlPanel = () => {
                                 chatWindowRef,
 								request
 							)
+							setMessageContent('')
 						}
 					}}
 				/>
 				<Button
 					type='button'
 					className={styles.dialogControlPanel__button}
-					actionHadler={() =>
-						sendMessageRquest(
+					actionHadler={async() => {
+						await sendMessageRquest(
 							host,
 							chatId,
 							messageContent,
@@ -65,6 +67,8 @@ const DialogControlPanel = () => {
                             chatWindowRef,
 							request
 						)
+						setMessageContent('')
+						}
 					}
 				>
 					{isMobile ? <Sendcon /> : <span>Отправить</span>}
